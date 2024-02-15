@@ -9,7 +9,7 @@ xcodebuild archive \
   -archivePath "$ROOT/FlexLayout-$SDK.xcarchive" \
   -sdk $SDK \
   SKIP_INSTALL=NO \
-  BUILD_LIBRARIES_FOR_DISTRIBUTION=YES \
+  BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
   DEBUG_INFORMATION_FORMAT=DWARF
 done
 
