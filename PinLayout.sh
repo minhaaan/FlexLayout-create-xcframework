@@ -1,4 +1,4 @@
-# 버전 입력 받기
+# read version
 echo "🚀 Input PinLayout version ex) 1.10.5"
 read version
 
