@@ -1,4 +1,4 @@
-# 버전 입력 받기
+# read version
 echo "🚀 Input FlexLayout version ex) 2.0.06"
 read version
 
