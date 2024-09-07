@@ -1,0 +1,728 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.10 (swiftlang-5.10.0.13 clang-1500.3.9.4)
+// swift-module-flags: -target x86_64-apple-ios12.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name PinLayout
+import Foundation
+import ObjectiveC
+@_exported import PinLayout
+import QuartzCore
+import Swift
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@_inheritsConvenienceInitializers @objc public class Pin : ObjectiveC.NSObject {
+  @objc public static var layoutDirection: PinLayout.LayoutDirection
+  @objc public static var safeAreaInsetsDidChangeMode: PinLayout.PinSafeAreaInsetsDidChangeMode {
+    @objc get
+    @objc set
+  }
+  @objc public static func initPinLayout()
+  @objc public static func layoutDirection(_ direction: PinLayout.LayoutDirection)
+  @objc public static var logWarnings: Swift.Bool
+  @objc public static var activeWarnings: PinLayout.ActiveWarnings
+  @objc public static var logMissingLayoutCalls: Swift.Bool
+  @objc public static var lastWarningText: Swift.String?
+  public static func resetWarnings()
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class ActiveWarnings : ObjectiveC.NSObject {
+  public var noSpaceAvailableBetweenViews: Swift.Bool
+  public var aspectRatioImageNotSet: Swift.Bool
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension QuartzCore.CALayer : PinLayout.Layoutable {
+  public typealias PinView = QuartzCore.CALayer
+  public var superview: QuartzCore.CALayer? {
+    get
+  }
+  public var subviews: [QuartzCore.CALayer] {
+    get
+  }
+  public var pin: PinLayout.PinLayout<QuartzCore.CALayer> {
+    get
+  }
+  public var pinFrame: PinLayout.PinLayout<QuartzCore.CALayer> {
+    get
+  }
+  public func getRect(keepTransform: Swift.Bool) -> CoreFoundation.CGRect
+  public func setRect(_ rect: CoreFoundation.CGRect, keepTransform: Swift.Bool)
+  public func isLTR() -> Swift.Bool
+}
+@objc public protocol Anchor {
+}
+@objc public protocol AnchorList {
+  @objc var topLeft: any PinLayout.Anchor { get }
+  @objc var topCenter: any PinLayout.Anchor { get }
+  @objc var topRight: any PinLayout.Anchor { get }
+  @objc var centerLeft: any PinLayout.Anchor { get }
+  @objc var center: any PinLayout.Anchor { get }
+  @objc var centerRight: any PinLayout.Anchor { get }
+  @objc var bottomLeft: any PinLayout.Anchor { get }
+  @objc var bottomCenter: any PinLayout.Anchor { get }
+  @objc var bottomRight: any PinLayout.Anchor { get }
+  @objc var topStart: any PinLayout.Anchor { get }
+  @objc var topEnd: any PinLayout.Anchor { get }
+  @objc var centerStart: any PinLayout.Anchor { get }
+  @objc var centerEnd: any PinLayout.Anchor { get }
+  @objc var bottomStart: any PinLayout.Anchor { get }
+  @objc var bottomEnd: any PinLayout.Anchor { get }
+}
+@objc public protocol EdgeList {
+  @objc var top: any PinLayout.VerticalEdge { get }
+  @objc var vCenter: any PinLayout.VerticalEdge { get }
+  @objc var bottom: any PinLayout.VerticalEdge { get }
+  @objc var left: any PinLayout.HorizontalEdge { get }
+  @objc var hCenter: any PinLayout.HorizontalEdge { get }
+  @objc var right: any PinLayout.HorizontalEdge { get }
+  @objc var start: any PinLayout.HorizontalEdge { get }
+  @objc var end: any PinLayout.HorizontalEdge { get }
+}
+@objc public enum HorizontalAlign : Swift.Int {
+  case left
+  case center
+  case right
+  case none
+  case start
+  case end
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum VerticalAlign : Swift.Int {
+  case top
+  case center
+  case bottom
+  case none
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public protocol HorizontalEdge {
+}
+@objc public protocol VerticalEdge {
+}
+public enum FitType {
+  case width
+  case height
+  case widthFlexible
+  case heightFlexible
+  case content
+  public static func == (a: PinLayout.FitType, b: PinLayout.FitType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@objc public enum WrapType : Swift.Int {
+  case all
+  case horizontally
+  case vertically
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum LayoutDirection : Swift.Int {
+  case auto
+  case ltr
+  case rtl
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum PinSafeAreaInsetsDidChangeMode : Swift.Int {
+  case disable
+  case optIn
+  case always
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension PinLayout.PinLayout {
+  @discardableResult
+  public func horizontallyBetween(_ view1: PinView, and view2: PinView, aligned: PinLayout.VerticalAlign = .none) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func verticallyBetween(_ view1: PinView, and view2: PinView, aligned: PinLayout.HorizontalAlign = .none) -> PinLayout.PinLayout<PinView>
+}
+public struct Percent {
+  public func of(_ value: CoreFoundation.CGFloat) -> CoreFoundation.CGFloat
+  public var description: Swift.String {
+    get
+  }
+}
+postfix operator %
+postfix public func % (v: CoreFoundation.CGFloat) -> PinLayout.Percent
+postfix public func % (v: Swift.Float) -> PinLayout.Percent
+postfix public func % (v: Swift.Double) -> PinLayout.Percent
+postfix public func % (v: Swift.Int) -> PinLayout.Percent
+prefix operator -
+prefix public func - (p: PinLayout.Percent) -> PinLayout.Percent
+extension PinLayout.PinLayout {
+  @discardableResult
+  public func size(_ size: CoreFoundation.CGSize) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func size(_ sideLength: CoreFoundation.CGFloat) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func size(_ percent: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func size(of view: PinView) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func aspectRatio(_ ratio: CoreFoundation.CGFloat) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func aspectRatio(of view: PinView) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func aspectRatio() -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func sizeToFit(_ fitType: PinLayout.FitType = .content) -> PinLayout.PinLayout<PinView>
+}
+public protocol SizeCalculable {
+  func sizeThatFits(_ size: CoreFoundation.CGSize) -> CoreFoundation.CGSize
+}
+public protocol Layoutable : AnyObject, Swift.CustomDebugStringConvertible, Swift.Equatable {
+  associatedtype PinView : PinLayout.Layoutable
+  var superview: Self.PinView? { get }
+  var subviews: [Self.PinView] { get }
+  func getRect(keepTransform: Swift.Bool) -> CoreFoundation.CGRect
+  func setRect(_ rect: CoreFoundation.CGRect, keepTransform: Swift.Bool)
+  func convert(_ point: CoreFoundation.CGPoint, to view: Self.PinView?) -> CoreFoundation.CGPoint
+  func isLTR() -> Swift.Bool
+}
+@objc extension UIKit.UIView {
+  @objc @_Concurrency.MainActor(unsafe) dynamic public var anchor: any PinLayout.AnchorList {
+    @objc get
+  }
+  @objc @_Concurrency.MainActor(unsafe) dynamic public var edge: any PinLayout.EdgeList {
+    @objc get
+  }
+}
+extension PinLayout.PinLayout {
+  @discardableResult
+  public func wrapContent() -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func wrapContent(padding: CoreFoundation.CGFloat) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func wrapContent(padding: PinLayout.PEdgeInsets) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func wrapContent(_ type: PinLayout.WrapType) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func wrapContent(_ type: PinLayout.WrapType, padding: CoreFoundation.CGFloat) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func wrapContent(_ type: PinLayout.WrapType, padding: PinLayout.PEdgeInsets) -> PinLayout.PinLayout<PinView>
+}
+public func _pinlayoutSetUnitTest(scale: CoreFoundation.CGFloat?)
+extension PinLayout.PinLayout {
+  public func layout()
+}
+public typealias PEdgeInsets = UIKit.UIEdgeInsets
+@_hasMissingDesignatedInitializers public class PinLayout<PinView> where PinView : PinLayout.Layoutable {
+  @objc deinit
+  public var safeArea: PinLayout.PEdgeInsets {
+    get
+  }
+  public var readableMargins: PinLayout.PEdgeInsets {
+    get
+  }
+  public var layoutMargins: PinLayout.PEdgeInsets {
+    get
+  }
+  public var keyboardArea: CoreFoundation.CGRect {
+    get
+  }
+  @discardableResult
+  public func top(_ offset: CoreFoundation.CGFloat = 0) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func top(_ percent: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func top(_ insets: PinLayout.PEdgeInsets) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func left(_ offset: CoreFoundation.CGFloat = 0) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func left(_ offset: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func left(_ insets: PinLayout.PEdgeInsets) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func start(_ offset: CoreFoundation.CGFloat = 0) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func start(_ offset: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func start(_ insets: PinLayout.PEdgeInsets) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func bottom(_ offset: CoreFoundation.CGFloat = 0) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func bottom(_ offset: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func bottom(_ insets: PinLayout.PEdgeInsets) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func right(_ offset: CoreFoundation.CGFloat = 0) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func right(_ offset: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func right(_ insets: PinLayout.PEdgeInsets) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func end(_ margin: CoreFoundation.CGFloat = 0) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func end(_ offset: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func end(_ insets: PinLayout.PEdgeInsets) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func hCenter(_ margin: CoreFoundation.CGFloat = 0) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func hCenter(_ offset: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func vCenter(_ margin: CoreFoundation.CGFloat = 0) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func vCenter(_ offset: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func all(_ margin: CoreFoundation.CGFloat = 0) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func all(_ insets: PinLayout.PEdgeInsets) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func horizontally(_ margin: CoreFoundation.CGFloat = 0) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func horizontally(_ percent: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func horizontally(_ insets: PinLayout.PEdgeInsets) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func vertically(_ margin: CoreFoundation.CGFloat = 0) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func vertically(_ percent: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func vertically(_ insets: PinLayout.PEdgeInsets) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func top(to edge: any PinLayout.VerticalEdge) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func vCenter(to edge: any PinLayout.VerticalEdge) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func bottom(to edge: any PinLayout.VerticalEdge) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func left(to edge: any PinLayout.HorizontalEdge) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func hCenter(to edge: any PinLayout.HorizontalEdge) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func right(to edge: any PinLayout.HorizontalEdge) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func start(to edge: any PinLayout.HorizontalEdge) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func end(to edge: any PinLayout.HorizontalEdge) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func topLeft(to anchor: any PinLayout.Anchor) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func topLeft(_ margin: CoreFoundation.CGFloat = 0) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func topStart(to anchor: any PinLayout.Anchor) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func topStart(_ margin: CoreFoundation.CGFloat = 0) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func topCenter(to anchor: any PinLayout.Anchor) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func topCenter(_ topMargin: CoreFoundation.CGFloat = 0) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func topRight(to anchor: any PinLayout.Anchor) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func topRight(_ margin: CoreFoundation.CGFloat = 0) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func topEnd(to anchor: any PinLayout.Anchor) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func topEnd(_ margin: CoreFoundation.CGFloat = 0) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func centerLeft(to anchor: any PinLayout.Anchor) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func centerLeft(_ leftMargin: CoreFoundation.CGFloat = 0) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func centerStart(to anchor: any PinLayout.Anchor) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func centerStart(_ startMargin: CoreFoundation.CGFloat = 0) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func center(to anchor: any PinLayout.Anchor) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func center(_ margin: CoreFoundation.CGFloat = 0) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func centerRight(to anchor: any PinLayout.Anchor) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func centerRight(_ rightMargin: CoreFoundation.CGFloat = 0) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func centerEnd(to anchor: any PinLayout.Anchor) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func centerEnd(_ endMargin: CoreFoundation.CGFloat = 0) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func bottomLeft(to anchor: any PinLayout.Anchor) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func bottomLeft(_ margin: CoreFoundation.CGFloat = 0) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func bottomStart(to anchor: any PinLayout.Anchor) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func bottomStart(_ margin: CoreFoundation.CGFloat = 0) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func bottomCenter(to anchor: any PinLayout.Anchor) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func bottomCenter(_ bottomMargin: CoreFoundation.CGFloat = 0) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func bottomRight(to anchor: any PinLayout.Anchor) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func bottomRight(_ margin: CoreFoundation.CGFloat = 0) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func bottomEnd(to anchor: any PinLayout.Anchor) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func bottomEnd(_ margin: CoreFoundation.CGFloat = 0) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func width(_ width: CoreFoundation.CGFloat) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func width(_ percent: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func width(of view: PinView) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func minWidth(_ width: CoreFoundation.CGFloat) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func minWidth(_ percent: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func maxWidth(_ width: CoreFoundation.CGFloat) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func maxWidth(_ percent: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func height(_ height: CoreFoundation.CGFloat) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func height(_ percent: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func height(of view: PinView) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func minHeight(_ height: CoreFoundation.CGFloat) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func minHeight(_ percent: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func maxHeight(_ height: CoreFoundation.CGFloat) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func maxHeight(_ percent: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func justify(_ value: PinLayout.HorizontalAlign) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func align(_ value: PinLayout.VerticalAlign) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func marginTop(_ margin: CoreFoundation.CGFloat) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func marginTop(_ percent: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func marginLeft(_ margin: CoreFoundation.CGFloat) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func marginLeft(_ percent: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func marginBottom(_ margin: CoreFoundation.CGFloat) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func marginBottom(_ percent: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func marginRight(_ margin: CoreFoundation.CGFloat) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func marginRight(_ percent: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func marginStart(_ margin: CoreFoundation.CGFloat) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func marginStart(_ percent: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func marginEnd(_ margin: CoreFoundation.CGFloat) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func marginEnd(_ percent: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func marginHorizontal(_ margin: CoreFoundation.CGFloat) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func marginHorizontal(_ percent: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func marginVertical(_ margin: CoreFoundation.CGFloat) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func marginVertical(_ percent: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func margin(_ insets: PinLayout.PEdgeInsets) -> PinLayout.PinLayout<PinView>
+  @available(tvOS 11.0, iOS 11.0, *)
+  @discardableResult
+  public func margin(_ directionalInsets: UIKit.NSDirectionalEdgeInsets) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func margin(_ margin: CoreFoundation.CGFloat) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func margin(_ percent: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func margin(_ top: CoreFoundation.CGFloat, _ left: CoreFoundation.CGFloat, _ bottom: CoreFoundation.CGFloat, _ right: CoreFoundation.CGFloat) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func margin(_ top: PinLayout.Percent, _ left: PinLayout.Percent, _ bottom: PinLayout.Percent, _ right: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func margin(_ vertical: CoreFoundation.CGFloat, _ horizontal: CoreFoundation.CGFloat) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func margin(_ vertical: PinLayout.Percent, _ horizontal: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func margin(_ top: CoreFoundation.CGFloat, _ horizontal: CoreFoundation.CGFloat, _ bottom: CoreFoundation.CGFloat) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func margin(_ top: PinLayout.Percent, _ horizontal: PinLayout.Percent, _ bottom: PinLayout.Percent) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func pinEdges() -> PinLayout.PinLayout<PinView>
+}
+extension PinLayout.PinLayout {
+  @discardableResult
+  public func above(of relativeView: PinView, aligned: PinLayout.HorizontalAlign = .none) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func above(of relativeViews: [PinView], aligned: PinLayout.HorizontalAlign = .none) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func below(of relativeView: PinView, aligned: PinLayout.HorizontalAlign = .none) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func below(of relativeViews: [PinView], aligned: PinLayout.HorizontalAlign = .none) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func left(of relativeView: PinView, aligned: PinLayout.VerticalAlign = .none) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func left(of relativeViews: [PinView], aligned: PinLayout.VerticalAlign = .none) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func right(of relativeView: PinView, aligned: PinLayout.VerticalAlign = .none) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func right(of relativeViews: [PinView], aligned: PinLayout.VerticalAlign = .none) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func before(of relativeView: PinView, aligned: PinLayout.VerticalAlign = .none) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func before(of relativeViews: [PinView], aligned: PinLayout.VerticalAlign = .none) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func after(of relativeView: PinView, aligned: PinLayout.VerticalAlign = .none) -> PinLayout.PinLayout<PinView>
+  @discardableResult
+  public func after(of relativeViews: [PinView], aligned: PinLayout.VerticalAlign = .none) -> PinLayout.PinLayout<PinView>
+}
+@objc public protocol PinLayoutObjC {
+  @objc var safeArea: PinLayout.PEdgeInsets { get }
+  typealias POVoid = () -> (any PinLayout.PinLayoutObjC)?
+  typealias POValue = (_ value: CoreFoundation.CGFloat) -> (any PinLayout.PinLayoutObjC)?
+  typealias POEdgeInsets = (_ insets: PinLayout.PEdgeInsets) -> (any PinLayout.PinLayoutObjC)?
+  typealias POVEdge = (_ edge: any PinLayout.VerticalEdge) -> (any PinLayout.PinLayoutObjC)?
+  typealias POHEdge = (_ edge: any PinLayout.HorizontalEdge) -> (any PinLayout.PinLayoutObjC)?
+  typealias POAnchor = (_ anchor: any PinLayout.Anchor) -> (any PinLayout.PinLayoutObjC)?
+  typealias POSize = (_ size: CoreFoundation.CGSize) -> (any PinLayout.PinLayoutObjC)?
+  typealias POHAlign = (_ hAlign: PinLayout.HorizontalAlign) -> (any PinLayout.PinLayoutObjC)?
+  typealias POVAlign = (_ hAlign: PinLayout.VerticalAlign) -> (any PinLayout.PinLayoutObjC)?
+  typealias POWrapType = (_ type: PinLayout.WrapType) -> (any PinLayout.PinLayoutObjC)?
+  typealias POWrapTypePadding = (_ type: PinLayout.WrapType, _ padding: CoreFoundation.CGFloat) -> (any PinLayout.PinLayoutObjC)?
+  typealias POWrapTypeInsets = (_ type: PinLayout.WrapType, _ insets: PinLayout.PEdgeInsets) -> (any PinLayout.PinLayoutObjC)?
+  typealias POFitType = (_ type: PinLayout.Fit) -> (any PinLayout.PinLayoutObjC)?
+  @objc var layout: Self.POVoid { get }
+  @objc var top: Self.POVoid { get }
+  @objc var topValue: Self.POValue { get }
+  @objc var topPercent: Self.POValue { get }
+  @objc var topInsets: Self.POEdgeInsets { get }
+  @objc var left: Self.POVoid { get }
+  @objc var leftValue: Self.POValue { get }
+  @objc var leftPercent: Self.POValue { get }
+  @objc var leftInsets: Self.POEdgeInsets { get }
+  @objc var bottom: Self.POVoid { get }
+  @objc var bottomValue: Self.POValue { get }
+  @objc var bottomPercent: Self.POValue { get }
+  @objc var bottomInsets: Self.POEdgeInsets { get }
+  @objc var right: Self.POVoid { get }
+  @objc var rightValue: Self.POValue { get }
+  @objc var rightPercent: Self.POValue { get }
+  @objc var rightInsets: Self.POEdgeInsets { get }
+  @objc var hCenter: Self.POVoid { get }
+  @objc var hCenterValue: Self.POValue { get }
+  @objc var hCenterPercent: Self.POValue { get }
+  @objc var vCenter: Self.POVoid { get }
+  @objc var vCenterValue: Self.POValue { get }
+  @objc var vCenterPercent: Self.POValue { get }
+  @objc var start: Self.POVoid { get }
+  @objc var startValue: Self.POValue { get }
+  @objc var startPercent: Self.POValue { get }
+  @objc var startInsets: Self.POEdgeInsets { get }
+  @objc var end: Self.POVoid { get }
+  @objc var endValue: Self.POValue { get }
+  @objc var endPercent: Self.POValue { get }
+  @objc var endInsets: Self.POEdgeInsets { get }
+  @objc var all: Self.POVoid { get }
+  @objc var horizontally: Self.POVoid { get }
+  @objc var vertically: Self.POVoid { get }
+  @objc var topToEdge: Self.POVEdge { get }
+  @objc var vCenterToEdge: Self.POVEdge { get }
+  @objc var bottomToEdge: Self.POVEdge { get }
+  @objc var leftToEdge: Self.POHEdge { get }
+  @objc var hCenterToEdge: Self.POHEdge { get }
+  @objc var rightToEdge: Self.POHEdge { get }
+  @objc var startToEdge: Self.POHEdge { get }
+  @objc var endToEdge: Self.POHEdge { get }
+  @objc var topLeftToAnchor: Self.POAnchor { get }
+  @objc var topLeft: Self.POVoid { get }
+  @objc var topStartToAnchor: Self.POAnchor { get }
+  @objc var topStart: Self.POVoid { get }
+  @objc var topCenterToAnchor: Self.POAnchor { get }
+  @objc var topCenter: Self.POVoid { get }
+  @objc var topRightToAnchor: Self.POAnchor { get }
+  @objc var topRight: Self.POVoid { get }
+  @objc var topEndToAnchor: Self.POAnchor { get }
+  @objc var topEnd: Self.POVoid { get }
+  @objc var centerLeftToAnchor: Self.POAnchor { get }
+  @objc var centerLeft: Self.POVoid { get }
+  @objc var centerStartToAnchor: Self.POAnchor { get }
+  @objc var centerStart: Self.POVoid { get }
+  @objc var centerToAnchor: Self.POAnchor { get }
+  @objc var center: Self.POVoid { get }
+  @objc var centerRightToAnchor: Self.POAnchor { get }
+  @objc var centerRight: Self.POVoid { get }
+  @objc var centerEndToAnchor: Self.POAnchor { get }
+  @objc var centerEnd: Self.POVoid { get }
+  @objc var bottomLeftToAnchor: Self.POAnchor { get }
+  @objc var bottomLeft: Self.POVoid { get }
+  @objc var bottomStartToAnchor: Self.POAnchor { get }
+  @objc var bottomStart: Self.POVoid { get }
+  @objc var bottomCenterToAnchor: Self.POAnchor { get }
+  @objc var bottomCenter: Self.POVoid { get }
+  @objc var bottomRightToAnchor: Self.POAnchor { get }
+  @objc var bottomRight: Self.POVoid { get }
+  @objc var bottomEndToAnchor: Self.POAnchor { get }
+  @objc var bottomEnd: Self.POVoid { get }
+  typealias POView = (_ view: UIKit.UIView) -> (any PinLayout.PinLayoutObjC)?
+  typealias POViews = (_ views: [UIKit.UIView]) -> (any PinLayout.PinLayoutObjC)?
+  typealias POViewHAligned = (_ view: UIKit.UIView, _ aligned: PinLayout.HorizontalAlign) -> (any PinLayout.PinLayoutObjC)?
+  typealias POViewsHAligned = (_ views: [UIKit.UIView], _ aligned: PinLayout.HorizontalAlign) -> (any PinLayout.PinLayoutObjC)?
+  typealias POViewVAligned = (_ view: UIKit.UIView, _ aligned: PinLayout.VerticalAlign) -> (any PinLayout.PinLayoutObjC)?
+  typealias POViewsVAligned = (_ views: [UIKit.UIView], _ aligned: PinLayout.VerticalAlign) -> (any PinLayout.PinLayoutObjC)?
+  @objc var aboveOf: Self.POView { get }
+  @objc var aboveOfViews: Self.POViews { get }
+  @objc var aboveOfAligned: Self.POViewHAligned { get }
+  @objc var aboveOfViewsAligned: Self.POViewsHAligned { get }
+  @objc var belowOf: Self.POView { get }
+  @objc var belowOfViews: Self.POViews { get }
+  @objc var belowOfAligned: Self.POViewHAligned { get }
+  @objc var belowOfViewsAligned: Self.POViewsHAligned { get }
+  @objc var leftOf: Self.POView { get }
+  @objc var leftOfViews: Self.POViews { get }
+  @objc var leftOfAligned: Self.POViewVAligned { get }
+  @objc var leftOfViewsAligned: Self.POViewsVAligned { get }
+  @objc var rightOf: Self.POView { get }
+  @objc var rightOfViews: Self.POViews { get }
+  @objc var rightOfAligned: Self.POViewVAligned { get }
+  @objc var rightOfViewsAligned: Self.POViewsVAligned { get }
+  @objc var beforeOf: Self.POView { get }
+  @objc var beforeOfViews: Self.POViews { get }
+  @objc var beforeOfAligned: Self.POViewVAligned { get }
+  @objc var beforeOfViewsAligned: Self.POViewsVAligned { get }
+  @objc var afterOf: Self.POView { get }
+  @objc var afterOfViews: Self.POViews { get }
+  @objc var afterOfAligned: Self.POViewVAligned { get }
+  @objc var afterOfViewsAligned: Self.POViewsVAligned { get }
+  @objc var justify: Self.POHAlign { get }
+  @objc var align: Self.POVAlign { get }
+  @objc var width: Self.POValue { get }
+  @objc var widthPercent: Self.POValue { get }
+  @objc var widthOf: Self.POView { get }
+  @objc var minWidth: Self.POValue { get }
+  @objc var minWidthPercent: Self.POValue { get }
+  @objc var maxWidth: Self.POValue { get }
+  @objc var maxWidthPercent: Self.POValue { get }
+  @objc var height: Self.POValue { get }
+  @objc var heightPercent: Self.POValue { get }
+  @objc var heightOf: Self.POView { get }
+  @objc var minHeight: Self.POValue { get }
+  @objc var minHeightPercent: Self.POValue { get }
+  @objc var maxHeight: Self.POValue { get }
+  @objc var maxHeightPercent: Self.POValue { get }
+  @objc var size: Self.POSize { get }
+  @objc var sizeLength: Self.POValue { get }
+  @objc var sizePercent: Self.POValue { get }
+  @objc var sizeOf: Self.POView { get }
+  @objc var wrapContent: Self.POVoid { get }
+  @objc var wrapContentPadding: Self.POValue { get }
+  @objc var wrapContentInsets: Self.POEdgeInsets { get }
+  @objc var wrapContentType: Self.POWrapType { get }
+  @objc var wrapContentTypePadding: Self.POWrapTypePadding { get }
+  @objc var wrapContentTypeInsets: Self.POWrapTypeInsets { get }
+  @objc var aspectRatioValue: Self.POValue { get }
+  @objc var aspectRatioOf: Self.POView { get }
+  @objc var aspectRatio: Self.POVoid { get }
+  @objc var sizeToFit: Self.POVoid { get }
+  @objc var sizeToFitType: Self.POFitType { get }
+  @objc var marginTop: Self.POValue { get }
+  @objc var marginLeft: Self.POValue { get }
+  @objc var marginBottom: Self.POValue { get }
+  @objc var marginRight: Self.POValue { get }
+  @objc var marginStart: Self.POValue { get }
+  @objc var marginEnd: Self.POValue { get }
+  @objc var marginHorizontal: Self.POValue { get }
+  @objc var marginVertical: Self.POValue { get }
+  @objc var marginInsets: Self.POEdgeInsets { get }
+  @objc var margin: Self.POValue { get }
+  @objc var marginVH: (_ vertical: CoreFoundation.CGFloat, _ horizontal: CoreFoundation.CGFloat) -> (any PinLayout.PinLayoutObjC)? { get }
+  @objc var marginTHB: (_ top: CoreFoundation.CGFloat, _ horizontal: CoreFoundation.CGFloat, _ bottom: CoreFoundation.CGFloat) -> (any PinLayout.PinLayoutObjC)? { get }
+  @objc var marginTLBR: (_ top: CoreFoundation.CGFloat, _ left: CoreFoundation.CGFloat, _ bottom: CoreFoundation.CGFloat, _ right: CoreFoundation.CGFloat) -> (any PinLayout.PinLayoutObjC)? { get }
+  @objc var pinEdges: Self.POVoid { get }
+}
+@objc public enum Fit : Swift.Int {
+  case width
+  case height
+  case widthFlexible
+  case heightFlexible
+  case content
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension UIKit.UIEdgeInsets {
+  public func minInsets(_ insets: PinLayout.PEdgeInsets) -> PinLayout.PEdgeInsets
+  public func minInsets(dx: CoreFoundation.CGFloat, dy: CoreFoundation.CGFloat) -> PinLayout.PEdgeInsets
+}
+public func + (lhs: PinLayout.PEdgeInsets, rhs: Swift.Int) -> PinLayout.PEdgeInsets
+public func + (lhs: PinLayout.PEdgeInsets, rhs: CoreFoundation.CGFloat) -> PinLayout.PEdgeInsets
+public func visible(_ views: [UIKit.UIView]) -> [UIKit.UIView]
+@available(iOS 7.0, *)
+public protocol PinSafeAreaInsetsUpdate {
+  func safeAreaInsetsDidChange()
+}
+public protocol AutoSizeCalculable {
+  func setAutoSizingRect(_ rect: CoreFoundation.CGRect, margins: PinLayout.PEdgeInsets)
+  func autoSizeThatFits(_ size: CoreFoundation.CGSize, layoutClosure: () -> Swift.Void) -> CoreFoundation.CGSize
+}
+extension UIKit.UIView : PinLayout.Layoutable, PinLayout.SizeCalculable {
+  public typealias PinView = UIKit.UIView
+  @_Concurrency.MainActor(unsafe) public var pin: PinLayout.PinLayout<UIKit.UIView> {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) public var pinFrame: PinLayout.PinLayout<UIKit.UIView> {
+    get
+  }
+  @objc @_Concurrency.MainActor(unsafe) dynamic public var pinObjc: any PinLayout.PinLayoutObjC {
+    @objc get
+  }
+  @_Concurrency.MainActor(unsafe) public func getRect(keepTransform: Swift.Bool) -> CoreFoundation.CGRect
+  @_Concurrency.MainActor(unsafe) public func setRect(_ rect: CoreFoundation.CGRect, keepTransform: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) public func isLTR() -> Swift.Bool
+}
+extension UIKit.UIView : PinLayout.AutoSizeCalculable {
+  @_Concurrency.MainActor(unsafe) public func setAutoSizingRect(_ rect: CoreFoundation.CGRect, margins: PinLayout.PEdgeInsets)
+  @_Concurrency.MainActor(unsafe) public func autoSizeThatFits(_ size: CoreFoundation.CGSize, layoutClosure: () -> Swift.Void) -> CoreFoundation.CGSize
+}
+extension PinLayout.Layoutable {
+  public var anchor: any PinLayout.AnchorList {
+    get
+  }
+  public var edge: any PinLayout.EdgeList {
+    get
+  }
+}
+extension PinLayout.HorizontalAlign : Swift.Equatable {}
+extension PinLayout.HorizontalAlign : Swift.Hashable {}
+extension PinLayout.HorizontalAlign : Swift.RawRepresentable {}
+extension PinLayout.VerticalAlign : Swift.Equatable {}
+extension PinLayout.VerticalAlign : Swift.Hashable {}
+extension PinLayout.VerticalAlign : Swift.RawRepresentable {}
+extension PinLayout.FitType : Swift.Equatable {}
+extension PinLayout.FitType : Swift.Hashable {}
+extension PinLayout.WrapType : Swift.Equatable {}
+extension PinLayout.WrapType : Swift.Hashable {}
+extension PinLayout.WrapType : Swift.RawRepresentable {}
+extension PinLayout.LayoutDirection : Swift.Equatable {}
+extension PinLayout.LayoutDirection : Swift.Hashable {}
+extension PinLayout.LayoutDirection : Swift.RawRepresentable {}
+extension PinLayout.PinSafeAreaInsetsDidChangeMode : Swift.Equatable {}
+extension PinLayout.PinSafeAreaInsetsDidChangeMode : Swift.Hashable {}
+extension PinLayout.PinSafeAreaInsetsDidChangeMode : Swift.RawRepresentable {}
+extension PinLayout.Fit : Swift.Equatable {}
+extension PinLayout.Fit : Swift.Hashable {}
+extension PinLayout.Fit : Swift.RawRepresentable {}
